@@ -1,5 +1,6 @@
 import MovieList from 'components/MovieList/MovieList';
 import { useSearchParams } from 'react-router-dom';
+import { Input } from './SearchMovie.styled';
 
 const SearchMovie = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -13,13 +14,13 @@ const SearchMovie = () => {
   };
 
   return (
-    <>
+    <div style={{ padding: 16 }}>
       <form onSubmit={handleSubmit}>
-        <input type="text" name="query" />
+        <Input type="text" name="query" />
         <button type="submit">Search</button>
       </form>
       {query && <MovieList query={query} />}
-    </>
+    </div>
   );
 };
 
