@@ -1,10 +1,11 @@
-import { TrendingMovie } from 'components/TrendingMovie/TrendingMovie';
+import TrendingMovie from 'components/TrendingMovie';
 
-export const Home = () => {
+const Home = () => {
   return (
     <>
-      <div>Home</div>
       <TrendingMovie />
     </>
   );
 };
+
+export default Home;

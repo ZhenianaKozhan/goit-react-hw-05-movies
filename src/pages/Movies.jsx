@@ -1,8 +1,7 @@
-// import { MovieDetails } from 'components/MovieDetails/MovieDetails';
-import { SearchMovie } from 'components/SearchMovie/SearchMovie';
+import SearchMovie from 'components/SearchMovie';
 import { Outlet } from 'react-router-dom';
 
-export const Movies = () => {
+const Movies = () => {
   return (
     <>
       <SearchMovie />
@@ -10,3 +9,5 @@ export const Movies = () => {
     </>
   );
 };
+
+export default Movies;
