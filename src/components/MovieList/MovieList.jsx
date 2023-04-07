@@ -1,20 +1,17 @@
 import { useEffect, useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
-import { MovieAPI } from 'services/api';
-
-const searchURL = '/search/movie';
-const trendingURL = '/trending/movie/day';
+import { getQuery, getTrending } from 'services/api';
 
 const MovieList = ({ query }) => {
   const [movieList, setMovieList] = useState(null);
   const location = useLocation();
 
   useEffect(() => {
-    async function fetchMovie(url, query) {
-      const { results } = await MovieAPI(url, query);
+    async function fetchMovie(query) {
+      const results = !query ? await getTrending() : await getQuery(query);
       setMovieList(results);
     }
-    !query ? fetchMovie(trendingURL) : fetchMovie(searchURL, query);
+    fetchMovie();
   }, [query]);
 
   return (

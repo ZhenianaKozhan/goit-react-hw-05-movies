@@ -1,16 +1,18 @@
 import { List } from 'components/Cast/Cast.styled';
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MovieAPI } from 'services/api';
+import { getReviews } from 'services/api';
 
 const Reviews = () => {
   const { movieId } = useParams();
   const [reviews, setReviews] = useState(null);
 
   useEffect(() => {
-    MovieAPI(`/movie/${movieId}/reviews`).then(({ results }) =>
-      setReviews(results)
-    );
+    async function loadReviews(id) {
+      const responce = await getReviews(id);
+      setReviews(responce);
+    }
+    loadReviews(movieId);
   }, [movieId]);
 
   return (

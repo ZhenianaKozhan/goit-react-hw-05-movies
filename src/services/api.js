@@ -9,12 +9,51 @@ axios.defaults.params = {
   language: 'en-US',
 };
 
-export const MovieAPI = async (url = '', query = '') => {
+export const getCast = async id => {
+  try {
+    const res = await axios.get(`/movie/${id}/credits`);
+    return res.data.cast;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getDetails = async id => {
+  try {
+    const res = await axios.get(`/movie/${id}`);
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getQuery = async query => {
   const config = {
     params: {
       query: query,
+      page: 1,
     },
   };
-  const response = await axios.get(`${BASE_URL}${url}`, config);
-  return response.data;
+
+  try {
+    const res = await axios.get(`/search/movie`, config);
+    return res.data.results;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+export const getTrending = async () => {
+  const res = await axios.get(`/trending/movie/day`);
+  return res.data.results;
+};
+
+export const getReviews = async id => {
+  try {
+    const res = await axios.get(`/movie/${id}/reviews`);
+    console.log(res);
+    return res.data.results;
+  } catch (error) {
+    console.log(error);
+  }
 };

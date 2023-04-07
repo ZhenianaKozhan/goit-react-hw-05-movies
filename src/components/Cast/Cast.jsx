@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { MovieAPI } from 'services/api';
+import { getCast } from 'services/api';
 import { List } from './Cast.styled';
 
 const Cast = () => {
@@ -8,7 +8,11 @@ const Cast = () => {
   const [cast, setCast] = useState(null);
 
   useEffect(() => {
-    MovieAPI(`/movie/${movieId}/credits`).then(({ cast }) => setCast(cast));
+    async function loadCast(id) {
+      const responce = await getCast(id);
+      setCast(responce);
+    }
+    loadCast(movieId);
   }, [movieId]);
 
   return (
@@ -17,7 +21,9 @@ const Cast = () => {
         <li key={id}>
           <img
             src={
-              profile_path && `https://image.tmdb.org/t/p/w500/${profile_path}`
+              profile_path
+                ? `https://image.tmdb.org/t/p/w500/${profile_path}`
+                : 'https://www.shutterstock.com/image-vector/incognito-icon-browse-private-vector-260nw-1462596698.jpg'
             }
             alt={name}
             width="80"

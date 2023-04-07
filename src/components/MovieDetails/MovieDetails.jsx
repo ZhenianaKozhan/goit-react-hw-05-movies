@@ -1,6 +1,6 @@
 import { Suspense, useEffect, useRef, useState } from 'react';
 import { Link, Outlet, useLocation, useParams } from 'react-router-dom';
-import { MovieAPI } from 'services/api';
+import { getDetails } from 'services/api';
 import { MovieCard } from './MovieDetails.styled';
 import { IoMdArrowRoundBack } from 'react-icons/io';
 import { LinkStyled } from '../Header/Header.styled';
@@ -13,7 +13,11 @@ const MovieDetails = () => {
   const backLinkLocationRef = useRef(location.state?.from ?? '/');
 
   useEffect(() => {
-    MovieAPI(`/movie/${movieId}`).then(setFilmCard);
+    async function loadFilmDetails(id) {
+      const response = await getDetails(id);
+      setFilmCard(response);
+    }
+    loadFilmDetails(movieId);
   }, [movieId]);
 
   return (
