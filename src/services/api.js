@@ -51,7 +51,6 @@ export const getTrending = async () => {
 export const getReviews = async id => {
   try {
     const res = await axios.get(`/movie/${id}/reviews`);
-    console.log(res);
     return res.data.results;
   } catch (error) {
     console.log(error);
